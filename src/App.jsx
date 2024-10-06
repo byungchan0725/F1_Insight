@@ -1,101 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-
-const circuitData = [
-  { id: 1, name: 'test-1', country: '이탈리아', circuit: '몬자' },
-  { id: 2, name: '이름 2', country: '이탈리아', circuit: '몬자' },
-  { id: 3, name: '이름 3', country: '이탈리아', circuit: '몬자' },
-  { id: 4, name: '이름 4', country: '이탈리아', circuit: '몬자' },
-  { id: 5, name: '이름 5', country: '이탈리아', circuit: '몬자' },
-  { id: 6, name: '이름 6', country: '이탈리아', circuit: '몬자' },
-  { id: 7, name: '이름 7', country: '이탈리아', circuit: '몬자' },
-];
-
-const CircuitCard = ({ name, country, circuit }) => (
-  <div className="border border-gray-300 p-4 rounded-lg w-full">
-    <Link to={`/circuit/${name}`}>
-      <img 
-        src="http://raceweek.co.kr/wp-content/uploads/2024/09/MONZA-4.jpg" 
-        alt={name} 
-        className="w-[350px] h-auto object-cover mx-auto"
-      />
-      <div className="mt-2 text-center">
-        <h2 className="font-bold">{name}</h2>
-        <p>나라: {country}</p>
-        <p>서킷: {circuit}</p>
-      </div>
-    </Link>
-  </div>
-);
-
-const CircuitDetail = ({ match }) => {
-  const name = match.params.name;
-
-  // 여기에 동적으로 추가할 정보
-  const circuitInfo = circuitData.find(circuit => circuit.name === name);
-
-  return (
-    <div>
-      <h2>{name} 상세 정보</h2>
-      {circuitInfo ? (
-        <div>
-          <p>나라: {circuitInfo.country}</p>
-          <p>서킷: {circuitInfo.circuit}</p>
-          {/* 추가적인 정보가 필요하면 여기에 추가 */}
-        </div>
-      ) : (
-        <p>서킷 정보를 찾을 수 없습니다.</p>
-      )}
-    </div>
-  );
-};
-
-const years = Array.from({ length: new Date().getFullYear() - 1950 + 1 }, (v, i) => 1950 + i);
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './ui/Header/Header';
+import Garage from './asset/svg/garage.svg';
 
 const App = () => {
-  const [selectedYear, setSelectedYear] = React.useState(new Date().getFullYear());
-
   return (
     <Router>
-      <div className="flex flex-col bg-white min-h-screen">
-        <header className="flex items-center justify-center bg-black h-[60px]">
-          <h1 className="text-white text-lg font-bold">F1 서킷 요약 서비스</h1>
+      <div>
+        <header className="flex items-center justify-center bg-red-600 h-[60px]">
+          <h1 className="text-white text-xl font-bold">F1 Insight</h1>
         </header>
-        <main className="flex-grow flex flex-col items-center justify-center p-4 mt-[20px]">
-          {/* 헤더와 요소 사이에 추가할 코드 */}
-          <div className="mb-4 flex flex-col items-center justify-center w-[70%]">
-            <input 
-              id="year-slider" 
-              type="range" 
-              min="1950" 
-              max={new Date().getFullYear()} 
-              value={selectedYear} 
-              onChange={(e) => setSelectedYear(e.target.value)} 
-              className="slider w-full"
-            />
-          </div>
-          <label htmlFor="year-slider" className="mr-2">연도 선택: {selectedYear}</label>
-          <Routes>
-            <Route path="/" element={
-              <div className="w-[70%] max-w-6xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {circuitData.map((circuit) => (
-                    <CircuitCard 
-                      key={circuit.id}
-                      name={circuit.name}
-                      country={circuit.country}
-                      circuit={circuit.circuit}
-                    />
-                  ))}
-                </div>
+        <div className="w-full max-w-[60%] mx-auto mt-10">
+          <h1 className="text-2xl font-nanum mb-3">F1 지식 습득 플랫폼</h1>
+          <p className="text-sm font-light font-nanum mb-5">
+            ~~~~~~~~~~~~~~~~~~
+          </p>
+          <p className="text-sm font-light font-nanum mb-5">
+            디자인 해야함 디자인 해야함 디자인 해야함 디자인 해야함
+          </p>
+          <div className="flex flex-col items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:w-[80%]">
+              <div className="border-2 border-gray-200 rounded-lg h-[200px] flex flex-col items-center overflow-hidden shadow-md hover:shadow-red-300">
+                <img
+                  src={Garage}
+                  alt="garage"
+                  className="w-[60px] h-auto mt-8 md:w-[20%]"
+                />
+                <h1 className="mt-2 text-2xl font-nanum">팀 확인</h1>
+                <p className="text-center font-light font-nanum mt-4 px-4 flex-grow">
+                  {new Date().getFullYear()} 시즌 팀을 확인합니다.
+                </p>
               </div>
-            } />
-            <Route path="/circuit/:name" element={<CircuitDetail />} />
-          </Routes>
-        </main>
+            </div>
+          </div>
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
