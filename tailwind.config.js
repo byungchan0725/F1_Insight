@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nanum: ['Nanum Gothic', 'sans-serif'], // 사용자 정의 폰트 추가
+      },
+    },
   },
   plugins: [],
 }
